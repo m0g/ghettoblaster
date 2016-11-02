@@ -3,6 +3,8 @@ import path from 'path';
 import url from 'url';
 import { Client } from 'disconnect';
 
+import search from './search';
+
 const db = new Client().database();
 
 //const electron = require('electron')
@@ -46,6 +48,14 @@ function createWindow () {
         //console.log(data);
         mainWindow.webContents.send('test-release', data);
     });
+  });
+
+  ipcMain.on('play-track', (e, data) => {
+    console.log('data', data);
+    search(`${data.artist} ${data.track}`)
+      .then((videoUrl) => {
+        console.log('video url', videoUrl);
+      });
   });
 }
 
