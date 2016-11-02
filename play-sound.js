@@ -4,6 +4,7 @@ var ytdl = require('ytdl-core');
 var ogg = require('ogg');
 var vorbis = require('vorbis');
 var Speaker = require('speaker');
+var ffmpeg = require('fluent-ffmpeg');
 
 // Create the Speaker instance
 var speaker = new Speaker({
@@ -11,7 +12,7 @@ var speaker = new Speaker({
   bitDepth: 16,         // 16-bit samples
   sampleRate: 44100     // 44,100 Hz sample rate
 });
-const uri = '2DMEUhqB_t4';
+const uri = 'XWIvfE01J0k';
 
 //const video = youtubedl(uri, ['--format=251']);
 
@@ -41,11 +42,23 @@ od.on('stream', function (stream) {
   stream.pipe(vd);
 });
 
-fs.createReadStream(`${__dirname}/audio.ogg`).pipe(od);
+//fs.createReadStream(`${__dirname}/audio.ogg`).pipe(od);
+
+ytdl.getInfo(`http://www.youtube.com/watch?v=${uri}`, { filter: function(format) {
+  console.log(format.audioEncoding, format.audioBitrate, format.container, format.resolution);
+  return (format.audioEncoding == 'vorbis' && format.resolution == null);
+}}, function(err, info) {
+  //console.log('info', info);
+  info.formats.forEach(function(format) {
+    //console.log(format.container);
+    if (format.audioEncoding == 'vorbis' && format.resolution == null)
+      ffmpeg(format.url).toFormat('ogg').writeToStream(od);
+  });
+});
 
 //ytdl(`http://www.youtube.com/watch?v=${uri}`, { filter: function(format) {
 //  console.log(format.audioEncoding, format.audioBitrate, format.container, format.resolution);
 //  return (format.audioEncoding == 'vorbis' && format.resolution == null);
 //}})
-//  //.pipe(ogg);
-//  .pipe(fs.createWriteStream('audio.webm'));
+//  .pipe(ffmpeg().toFormat('ogg').writeToStream(od));
+//  //.pipe(fs.createWriteStream('audio.webm'));
