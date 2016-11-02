@@ -59,6 +59,10 @@ function createWindow () {
       //  console.log('video url', videoUrl);
       //});
   });
+
+  db.search('Arcade Fire', {}, (err, data) => {
+    console.log('db search', err, data);
+  });
 }
 
 // This method will be called when Electron has finished

@@ -22,7 +22,7 @@ export default class App extends React.Component {
 
   play(track) {
     ipcRenderer.send('play-track', {
-      artist: this.state.title,
+      artist: this.state.artists[0].name,
       track: track.title
     });
   }
