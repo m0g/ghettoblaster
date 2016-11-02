@@ -1,7 +1,7 @@
 import request from 'request';
 import cheerio from 'cheerio';
 
-export default function(search) {
+export default (search) => {
   let url = `https://www.youtube.com/results?search_query=${encodeURIComponent(search)}`;
   console.log(url);
 

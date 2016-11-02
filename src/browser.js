@@ -4,6 +4,7 @@ import url from 'url';
 import { Client } from 'disconnect';
 
 import search from './search';
+import play from './play';
 
 const db = new Client().database();
 
@@ -53,9 +54,10 @@ function createWindow () {
   ipcMain.on('play-track', (e, data) => {
     console.log('data', data);
     search(`${data.artist} ${data.track}`)
-      .then((videoUrl) => {
-        console.log('video url', videoUrl);
-      });
+      .then(play);
+      //.then((videoUrl) => {
+      //  console.log('video url', videoUrl);
+      //});
   });
 }
 
