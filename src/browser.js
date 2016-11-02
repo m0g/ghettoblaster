@@ -1,12 +1,19 @@
-const electron = require('electron')
-// Module to control application life.
-const app = electron.app
-const ipcMain = electron.ipcMain;
-// Module to create native browser window.
-const BrowserWindow = electron.BrowserWindow
+import { app, ipcMain, BrowserWindow } from 'electron';
+import path from 'path';
+import url from 'url';
+import { Client } from 'disconnect';
 
-const path = require('path')
-const url = require('url')
+const db = new Client().database();
+
+//const electron = require('electron')
+//// Module to control application life.
+//const app = electron.app
+//const ipcMain = electron.ipcMain;
+//// Module to create native browser window.
+//const BrowserWindow = electron.BrowserWindow
+
+//const path = require('path')
+//const url = require('url')
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -18,7 +25,7 @@ function createWindow () {
 
   // and load the index.html of the app.
   mainWindow.loadURL(url.format({
-    pathname: path.join(__dirname, 'index.html'),
+    pathname: path.join(__dirname, '../static/index.html'),
     protocol: 'file:',
     slashes: true
   }))
@@ -33,6 +40,13 @@ function createWindow () {
     // when you should delete the corresponding element.
     mainWindow = null
   })
+
+  ipcMain.on('ready', () => {
+    db.getMaster(350618, function(err, data){
+        //console.log(data);
+        mainWindow.webContents.send('test-release', data);
+    });
+  });
 }
 
 // This method will be called when Electron has finished
@@ -48,3 +62,5 @@ app.on('window-all-closed', function () {
     app.quit()
   }
 })
+
+
