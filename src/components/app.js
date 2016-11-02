@@ -8,7 +8,12 @@ export default class App extends React.Component {
     super(props);
 
     this.play = this.play.bind(this);
-    this.state = { title: '', tracklist: [{ title: '' }] };
+
+    this.state = { 
+      title: '', 
+      artists: [{ name: '' }],
+      tracklist: [{ title: '' }] 
+    };
   }
 
   componentDidMount() {
@@ -32,6 +37,7 @@ export default class App extends React.Component {
     return (
       <div>
         <h1>{this.state.title}</h1>
+        <h2>{this.state.artists[0].name}</h2>
         <ul>{this.state.tracklist.map((track) => 
           <Track track={track} setPlay={this.play}/>
         )}</ul>
