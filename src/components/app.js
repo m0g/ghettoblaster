@@ -37,7 +37,7 @@ export default class App extends React.Component {
     console.log(this.state);
     return (
       <div>
-        <Search />
+        {this.props.children}
       </div>
     );
   }

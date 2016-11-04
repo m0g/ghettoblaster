@@ -1,8 +1,9 @@
-//import { ipcRenderer } from 'electron';
 import ReactDOM from 'react-dom';
 import React from 'react';
+import { Router, hashHistory } from 'react-router';
 
-import App from './../dist/components/app';
+
+import routes from './../dist/routes';
 
 //ipcRenderer.send('ready');
 
@@ -11,6 +12,6 @@ import App from './../dist/components/app';
 //});
 
 ReactDOM.render(
-  <App />,
+  <Router history={hashHistory} routes={routes} />,
   document.getElementById('root')
 );

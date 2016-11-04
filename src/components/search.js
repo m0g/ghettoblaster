@@ -1,5 +1,6 @@
 import { ipcRenderer } from 'electron';
 import React from 'react';
+import { Link } from 'react-router';
 
 export default class Search extends React.Component {
   constructor(props) {
@@ -32,7 +33,7 @@ export default class Search extends React.Component {
     if (this.state.results.status)
       results = (
         <ul>{this.state.results.artists.map((artist) => 
-          <li>{artist.name}</li>
+          <li><Link to={`/a/${artist.id}`}>{artist.name}</Link></li>
         )}</ul>
       );
 
