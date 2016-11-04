@@ -5,6 +5,7 @@ import { Client } from 'disconnect';
 
 import search from './search';
 import play from './play';
+import MusicBrainzApi from './musicbrainz-api';
 
 const db = new Client().database();
 
@@ -45,12 +46,12 @@ function createWindow () {
     mainWindow = null
   })
 
-  ipcMain.on('ready', () => {
-    db.getMaster(350618, function(err, data){
-        //console.log(data);
-        mainWindow.webContents.send('test-release', data);
-    });
-  });
+  //ipcMain.on('ready', () => {
+  //  db.getMaster(350618, function(err, data){
+  //      //console.log(data);
+  //      mainWindow.webContents.send('test-release', data);
+  //  });
+  //});
 
   ipcMain.on('play-track', (e, data) => {
     console.log('data', data);
@@ -61,9 +62,10 @@ function createWindow () {
       //});
   });
 
-  db.search('Arcade Fire', {}, (err, data) => {
-    console.log('db search', err, data);
-  });
+  new MusicBrainzApi(mainWindow);
+  //db.search('Arcade Fire', {}, (err, data) => {
+  //  console.log('db search', err, data);
+  //});
 }
 
 // This method will be called when Electron has finished
