@@ -20,10 +20,11 @@ export default class App extends React.Component {
   componentDidMount() {
     ipcRenderer.send('ready');
 
-    ipcRenderer.on('test-release', (e, data) => {
-      console.log('data', data);
-      this.setState(data);
-    });
+    console.log(this.props);
+
+    //ipcRenderer.on('test-release', (e, data) => {
+    //  this.setState(data);
+    //});
   }
 
   play(track) {
@@ -34,11 +35,13 @@ export default class App extends React.Component {
   }
 
   render() {
-    console.log(this.state);
     return (
-      <div>
+      <app>
+        <header>
+          <Search location={this.props.location}/>
+        </header>
         {this.props.children}
-      </div>
+      </app>
     );
   }
 }
