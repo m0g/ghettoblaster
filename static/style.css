@@ -49,6 +49,7 @@ input {
 
 input[type="text"] {
   border-bottom: 1px solid #eee;
+  width: 250px;
 }
 
 button {

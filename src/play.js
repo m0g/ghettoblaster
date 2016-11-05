@@ -23,19 +23,30 @@ export default (videoUri) => {
       vd.pipe(speaker);
     });
 
-    // an "error" event will get emitted if the stream is not a Vorbis stream
-    // (i.e. it could be a Theora video stream instead)
-    vd.on('error', function (err) {
-      // maybe try another decoder...
+    vd.on('end', function () {
+      console.log('vd end');
+      od = new ogg.Decoder();
+      vd = new vorbis.Decoder();
+      //stream.end();
+      stream = null;
     });
 
     stream.pipe(vd);
   });
 
+  od.on('end', function () {
+    console.log('od end');
+  });
+
   ytdl.getInfo(`http://www.youtube.com${videoUri}`, function(err, info) {
     info.formats.forEach(function(format) {
       if (format.audioEncoding == 'vorbis' && format.resolution == null)
-        ffmpeg(format.url).toFormat('ogg').writeToStream(od);
+        ffmpeg(format.url)
+          .toFormat('ogg')
+          .writeToStream(od)
+          .on('end', () => {
+            console.log('done playing!');
+          });
     });
   });
 }

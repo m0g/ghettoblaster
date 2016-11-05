@@ -27,7 +27,7 @@ let mainWindow, tray;
 function createWindow () {
   // Create the browser window.
   mainWindow = new BrowserWindow({width: 1200, height: 720})
-  tray = new Tray(path.join(__dirname, '../static/logo.png'));
+  //tray = new Tray(path.join(__dirname, '../static/logo.png'));
 
   // and load the index.html of the app.
   mainWindow.loadURL(url.format({
