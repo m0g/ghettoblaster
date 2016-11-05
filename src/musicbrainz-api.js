@@ -1,6 +1,5 @@
 import {ipcMain} from 'electron';
 import mb from 'musicbrainz';
-import fetch from 'node-fetch';
 import request from 'request';
 import os from 'os';
 

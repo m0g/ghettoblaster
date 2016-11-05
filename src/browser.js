@@ -6,6 +6,7 @@ import { Client } from 'disconnect';
 import search from './search';
 import play from './play';
 import MusicBrainzApi from './musicbrainz-api';
+import YoutubeApi from './youtube-api';
 
 const db = new Client().database();
 
@@ -25,7 +26,7 @@ let mainWindow, tray;
 
 function createWindow () {
   // Create the browser window.
-  mainWindow = new BrowserWindow({width: 1200, height: 700})
+  mainWindow = new BrowserWindow({width: 1200, height: 720})
   tray = new Tray(path.join(__dirname, '../static/logo.png'));
 
   // and load the index.html of the app.
@@ -46,23 +47,16 @@ function createWindow () {
     mainWindow = null
   })
 
-  //ipcMain.on('ready', () => {
-  //  db.getMaster(350618, function(err, data){
-  //      //console.log(data);
-  //      mainWindow.webContents.send('test-release', data);
-  //  });
-  //});
-
   ipcMain.on('play-track', (e, data) => {
-    console.log('data', data);
-    search(`${data.artist} ${data.track}`)
-      .then(play);
-      //.then((videoUrl) => {
-      //  console.log('video url', videoUrl);
-      //});
+    if (data.hasOwnProperty('href'))
+      play(data.href);
+    else
+      search(`${data.artist} ${data.track}`)
+        .then(play);
   });
 
   new MusicBrainzApi(mainWindow);
+  new YoutubeApi(mainWindow);
   //db.search('Arcade Fire', {}, (err, data) => {
   //  console.log('db search', err, data);
   //});

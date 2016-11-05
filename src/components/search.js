@@ -13,7 +13,6 @@ export default class Search extends React.Component {
   }
 
   componentDidMount() {
-    //ipcRenderer.on('search-artists-result', this.updateResults.bind(this));
     console.log('this.props', this);
   }
 
@@ -24,20 +23,8 @@ export default class Search extends React.Component {
     window.location.hash = '#/sr';
   }
 
-  //updateResults(e, artists) {
-  //  console.log('update results', e, artists);
-  //  this.setState({ results: { status: true, artists: artists }})
-  //}
-
   render() {
     let results;
-
-    //if (this.state.results.status)
-    //  results = (
-    //    <ul>{this.state.results.artists.map((artist) => 
-    //      <li><Link to={`/a/${artist.id}`}>{artist.name}</Link></li>
-    //    )}</ul>
-    //  );
 
     return (
       <form id="search" onSubmit={this.search.bind(this)}>

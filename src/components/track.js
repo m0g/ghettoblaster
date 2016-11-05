@@ -1,8 +1,16 @@
+import { ipcRenderer } from 'electron';
 import React from 'react';
 
 export default class Track extends React.Component {
   play() {
-    this.props.setPlay(this.props.track);
+    if (this.props.track.hasOwnProperty('href'))
+      ipcRenderer.send('play-track', {
+        href: this.props.track.href,
+        track: this.props.track.title
+      });
+
+    else
+      this.props.setPlay(this.props.track);
   }
 
   render() {

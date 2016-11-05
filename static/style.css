@@ -11,6 +11,10 @@ a {
   color: #9494ff;
 }
 
+li {
+  padding: 2px 0;
+}
+
 header {
   position: fixed;
   top: 0;
@@ -21,6 +25,8 @@ header {
 
 container {
   margin-top: 30px;
+  width: calc(100% - 20px);
+  padding: 0 10px;
   display: block;
 }
 
@@ -29,14 +35,39 @@ container {
   padding: 0 10px;
 }
 
-input {
+input, button {
   background: none;
   border: none;
-  color: #eee;
   outline: none;
+}
+
+input {
+  color: #eee;
   font-size: 16px;
+  font-family: monospace;
 }
 
 input[type="text"] {
   border-bottom: 1px solid #eee;
+}
+
+button {
+  color: #9494ff;
+  border: 1px solid #9494ff;
+  margin-left: 15px;
+  outline: none;
+}
+
+#search-results {
+  width: 100%;
+}
+
+#mb-results {
+  width: 50%;
+  float: left;
+}
+
+#yt-results {
+  width: 50%;
+  float: right;
 }
