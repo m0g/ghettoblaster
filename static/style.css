@@ -3,8 +3,40 @@ body {
   background: #222;
   color: #eee;
   font-size: 16px;
+  margin: 0;
+  padding: 0;
 }
 
 a {
   color: #9494ff;
+}
+
+header {
+  position: fixed;
+  top: 0;
+  background: #222;
+  width: 100%;
+  padding: 5px 0;
+}
+
+container {
+  margin-top: 30px;
+  display: block;
+}
+
+#search {
+  float: right;
+  padding: 0 10px;
+}
+
+input {
+  background: none;
+  border: none;
+  color: #eee;
+  outline: none;
+  font-size: 16px;
+}
+
+input[type="text"] {
+  border-bottom: 1px solid #eee;
 }

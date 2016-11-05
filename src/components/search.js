@@ -40,9 +40,8 @@ export default class Search extends React.Component {
     //  );
 
     return (
-      <form id="search-artists" onSubmit={this.search.bind(this)}>
+      <form id="search" onSubmit={this.search.bind(this)}>
         <input type="text" ref="query" placeholder="Type artist name..." />
-        <input type="submit" value="search" />
       </form>
     );
   }

@@ -40,7 +40,9 @@ export default class App extends React.Component {
         <header>
           <Search location={this.props.location}/>
         </header>
-        {this.props.children}
+        <container>
+          {this.props.children}
+        </container>
       </app>
     );
   }
